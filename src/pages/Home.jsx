@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Heart, Moon, Brain, Bot, ArrowRight, Star, CheckCircle } from 'lucide-react'
+import HeroParticles from '../components/HeroParticles'
 
 const services = [
   {
@@ -77,6 +78,7 @@ export default function Home() {
           position: 'absolute', inset: 0,
           backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(212,164,34,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(240,112,112,0.1) 0%, transparent 40%)',
         }} />
+        <HeroParticles />
         <div style={{ position: 'relative', maxWidth: '720px', margin: '0 auto' }}>
           <div style={{
             display: 'inline-block', padding: '6px 16px', borderRadius: '24px',
