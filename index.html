@@ -9,6 +9,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      /* GitHub Pages SPA: 404.html이 /?/path 형식으로 넘긴 경로를 실제 URL로 복원 */
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
     <script type="module" crossorigin src="/rest02/assets/index-CgEDec6L.js"></script>
     <link rel="stylesheet" crossorigin href="/rest02/assets/index-0KmAsx91.css">
   </head>
