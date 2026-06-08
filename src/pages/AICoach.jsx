@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Bot, Send, User, Sparkles, RefreshCw } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 
 const presets = [
   '생후 2개월 아기가 밤에 자주 깨요. 어떻게 하면 좋을까요?',
@@ -64,19 +65,19 @@ function Message({ msg }) {
     <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', flexDirection: isBot ? 'row' : 'row-reverse', marginBottom: '16px' }}>
       <div style={{
         width: '36px', height: '36px', borderRadius: '50%', flexShrink: 0,
-        backgroundColor: isBot ? '#1B6B6B' : '#F0E6D3',
+        backgroundColor: isBot ? 'var(--teal)' : 'var(--border)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        {isBot ? <Bot size={18} color="#D4A422" /> : <User size={18} color="#1B6B6B" />}
+        {isBot ? <Bot size={18} color="var(--mustard)" /> : <User size={18} color="var(--teal)" />}
       </div>
       <div style={{
         maxWidth: '75%',
-        backgroundColor: isBot ? '#fff' : '#1B6B6B',
-        border: isBot ? '1px solid #E8D5BC' : 'none',
+        backgroundColor: isBot ? 'var(--surface)' : 'var(--teal)',
+        border: isBot ? '1px solid var(--border)' : 'none',
         borderRadius: isBot ? '4px 16px 16px 16px' : '16px 4px 16px 16px',
         padding: '14px 16px',
         fontSize: '14px',
-        color: isBot ? '#374151' : '#FFF8EF',
+        color: isBot ? 'var(--text)' : 'var(--bg)',
         lineHeight: '1.7',
         whiteSpace: 'pre-wrap',
       }}>
@@ -94,6 +95,7 @@ const features = [
 ]
 
 export default function AICoach() {
+  const { isDark } = useTheme()
   const [messages, setMessages] = useState([
     { id: 1, role: 'bot', text: '안녕하세요! 아이봄 AI 코치예요 🌱\n\n출산·육아에 관한 어떤 질문이든 편하게 물어보세요. 아래 자주 묻는 질문을 선택하셔도 됩니다.' },
   ])
@@ -122,15 +124,15 @@ export default function AICoach() {
   }
 
   return (
-    <div style={{ backgroundColor: '#FFF8EF', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: 'var(--bg)', minHeight: '100vh' }}>
 
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg, #1B6B6B, #145252)', padding: '48px 24px', textAlign: 'center' }}>
+      <section style={{ background: isDark ? 'linear-gradient(to bottom, #061A10, #0A2518)' : 'linear-gradient(to bottom, #0F6E56, #1D9E75)', padding: '48px 24px', textAlign: 'center' }}>
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(212,164,34,0.2)', border: '1px solid rgba(212,164,34,0.3)', padding: '6px 16px', borderRadius: '24px', color: '#E8BC3A', fontSize: '13px', fontWeight: '600', marginBottom: '20px' }}>
             <Sparkles size={14} /> AI 육아코치
           </div>
-          <h1 style={{ color: '#FFF8EF', fontSize: 'clamp(28px, 5vw, 40px)', fontWeight: '700', margin: '0 0 12px' }}>
+          <h1 style={{ color: 'var(--bg)', fontSize: 'clamp(28px, 5vw, 40px)', fontWeight: '700', margin: '0 0 12px' }}>
             24시간 육아 파트너<br />AI 코치와 대화하세요
           </h1>
           <p style={{ color: '#C0E8E8', fontSize: '16px', lineHeight: '1.6', margin: 0 }}>
@@ -140,18 +142,18 @@ export default function AICoach() {
       </section>
 
       {/* Feature pills */}
-      <section style={{ padding: '24px', backgroundColor: '#EFF8F8' }}>
+      <section style={{ padding: '24px', backgroundColor: 'var(--bg-alt)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
           {features.map(({ icon, title, desc }) => (
             <div key={title} style={{
               display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 20px',
-              backgroundColor: '#fff', borderRadius: '40px', border: '1px solid #E8D5BC',
+              backgroundColor: 'var(--surface)', borderRadius: '40px', border: '1px solid var(--border)',
               fontSize: '14px',
             }}>
               <span style={{ fontSize: '18px' }}>{icon}</span>
               <div>
-                <span style={{ fontWeight: '600', color: '#1B6B6B' }}>{title}</span>
-                <span style={{ color: '#9CA3AF', marginLeft: '6px' }}>{desc}</span>
+                <span style={{ fontWeight: '600', color: 'var(--teal)' }}>{title}</span>
+                <span style={{ color: 'var(--text-muted)', marginLeft: '6px' }}>{desc}</span>
               </div>
             </div>
           ))}
@@ -161,43 +163,43 @@ export default function AICoach() {
       {/* Chat */}
       <section style={{ padding: '32px 24px 64px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ backgroundColor: '#fff', borderRadius: '20px', border: '1px solid #E8D5BC', overflow: 'hidden', boxShadow: '0 4px 20px rgba(27,107,107,0.08)' }}>
+          <div style={{ backgroundColor: 'var(--surface)', borderRadius: '20px', border: '1px solid var(--border)', overflow: 'hidden', boxShadow: '0 4px 20px rgba(27,107,107,0.08)' }}>
 
             {/* Chat header */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '16px 20px', borderBottom: '1px solid #E8D5BC', backgroundColor: '#EFF8F8',
+              padding: '16px 20px', borderBottom: '1px solid var(--border)', backgroundColor: 'var(--teal-50)',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#1B6B6B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Bot size={20} color="#D4A422" />
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--teal)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Bot size={20} color="var(--mustard)" />
                 </div>
                 <div>
-                  <div style={{ fontWeight: '700', fontSize: '15px', color: '#1a202c' }}>아이봄 AI 코치</div>
-                  <div style={{ fontSize: '12px', color: '#1B6B6B', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text)' }}>아이봄 AI 코치</div>
+                  <div style={{ fontSize: '12px', color: 'var(--teal)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block' }} />
                     온라인
                   </div>
                 </div>
               </div>
-              <button onClick={reset} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#9CA3AF', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', padding: '6px 10px', borderRadius: '8px' }}>
+              <button onClick={reset} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', padding: '6px 10px', borderRadius: '8px' }}>
                 <RefreshCw size={14} /> 새 대화
               </button>
             </div>
 
             {/* Messages */}
-            <div style={{ padding: '20px', height: '420px', overflowY: 'auto', backgroundColor: '#FAFAF9' }}>
+            <div style={{ padding: '20px', height: '420px', overflowY: 'auto', backgroundColor: 'var(--bg-alt)' }}>
               {messages.map(msg => <Message key={msg.id} msg={msg} />)}
               {loading && (
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '16px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1B6B6B', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Bot size={18} color="#D4A422" />
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--teal)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Bot size={18} color="var(--mustard)" />
                   </div>
-                  <div style={{ backgroundColor: '#fff', border: '1px solid #E8D5BC', borderRadius: '4px 16px 16px 16px', padding: '14px 18px' }}>
+                  <div style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '4px 16px 16px 16px', padding: '14px 18px' }}>
                     <div style={{ display: 'flex', gap: '4px' }}>
                       {[0, 1, 2].map(i => (
                         <div key={i} style={{
-                          width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#1B6B6B',
+                          width: '7px', height: '7px', borderRadius: '50%', backgroundColor: 'var(--teal)',
                           animation: `bounce 1.2s ${i * 0.2}s infinite`,
                         }} />
                       ))}
@@ -209,7 +211,7 @@ export default function AICoach() {
             </div>
 
             {/* Presets */}
-            <div style={{ padding: '12px 16px', borderTop: '1px solid #F3F4F6', backgroundColor: '#fff' }}>
+            <div style={{ padding: '12px 16px', borderTop: '1px solid var(--border)', backgroundColor: 'var(--surface)' }}>
               <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
                 {presets.map(p => (
                   <button
@@ -217,8 +219,8 @@ export default function AICoach() {
                     onClick={() => send(p)}
                     style={{
                       flexShrink: 0, padding: '7px 14px', borderRadius: '20px',
-                      border: '1px solid #D0EDED', backgroundColor: '#EFF8F8',
-                      cursor: 'pointer', fontSize: '13px', color: '#1B6B6B', fontFamily: 'inherit',
+                      border: '1px solid var(--teal-100)', backgroundColor: 'var(--teal-50)',
+                      cursor: 'pointer', fontSize: '13px', color: 'var(--teal)', fontFamily: 'inherit',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -229,7 +231,7 @@ export default function AICoach() {
             </div>
 
             {/* Input */}
-            <div style={{ padding: '16px 20px', borderTop: '1px solid #E8D5BC', backgroundColor: '#fff', display: 'flex', gap: '10px' }}>
+            <div style={{ padding: '16px 20px', borderTop: '1px solid var(--border)', backgroundColor: 'var(--surface)', display: 'flex', gap: '10px' }}>
               <input
                 value={input}
                 onChange={e => setInput(e.target.value)}
@@ -237,8 +239,8 @@ export default function AICoach() {
                 placeholder="육아 고민을 입력하세요..."
                 style={{
                   flex: 1, padding: '12px 16px', borderRadius: '12px',
-                  border: '1px solid #D1D5DB', fontSize: '14px', outline: 'none',
-                  fontFamily: 'inherit',
+                  border: '1px solid var(--border)', fontSize: '14px', outline: 'none',
+                  fontFamily: 'inherit', backgroundColor: 'var(--input-bg)', color: 'var(--text)',
                 }}
               />
               <button
@@ -246,7 +248,7 @@ export default function AICoach() {
                 disabled={!input.trim() || loading}
                 style={{
                   width: '48px', height: '48px', borderRadius: '12px', border: 'none',
-                  backgroundColor: input.trim() && !loading ? '#1B6B6B' : '#D1D5DB',
+                  backgroundColor: input.trim() && !loading ? 'var(--teal)' : 'var(--border)',
                   cursor: input.trim() && !loading ? 'pointer' : 'not-allowed',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
                 }}
@@ -256,7 +258,7 @@ export default function AICoach() {
             </div>
           </div>
 
-          <p style={{ textAlign: 'center', fontSize: '12px', color: '#9CA3AF', marginTop: '16px' }}>
+          <p style={{ textAlign: 'center', fontSize: '12px', color: 'var(--text-muted)', marginTop: '16px' }}>
             AI 답변은 참고용이며 의학적 진단이나 처방을 대체하지 않습니다. 응급 상황 시 119에 연락하세요.
           </p>
         </div>

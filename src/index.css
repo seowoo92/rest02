@@ -1,37 +1,85 @@
 @import "tailwindcss";
 
-@theme {
-  --color-teal: #1B6B6B;
-  --color-teal-light: #2A8B8B;
-  --color-teal-dark: #145252;
-  --color-teal-50: #EFF8F8;
-  --color-teal-100: #D0EDED;
+/* ── Light mode (default) ───────────────────────────── */
+:root {
+  --bg:           #FFF8EF;
+  --bg-alt:       #EFF8F8;
+  --bg-deep:      #E8D5BC;
+  --surface:      #FFFFFF;
+  --surface-alt:  #F9F5EF;
+  --border:       #E8D5BC;
+  --border-light: #F0E6D3;
+  --text:         #1a202c;
+  --text-sub:     #6B7280;
+  --text-muted:   #9CA3AF;
+  --input-bg:     #FFFFFF;
 
-  --color-ivory: #FFF8EF;
-  --color-ivory-dark: #F0E6D3;
-  --color-ivory-deeper: #E8D5BC;
+  --teal:         #1B6B6B;
+  --teal-light:   #2A8B8B;
+  --teal-dark:    #145252;
+  --teal-50:      #EFF8F8;
+  --teal-100:     #D0EDED;
+  --mustard:      #EAB12C;
+  --mustard-l:    #F2CC44;
+  --mustard-50:   #FDF6E3;
+  --coral:        #F07070;
+  --coral-l:      #F59595;
+  --coral-50:     #FEF0F0;
 
-  --color-mustard: #D4A422;
-  --color-mustard-light: #E8BC3A;
-  --color-mustard-50: #FDF6E3;
+  --nav-bg:       #1B6B6B;
+  --nav-text:     #E0F2F2;
+  --footer-bg:    #145252;
+  --footer-text:  #A8D8D8;
 
-  --color-coral: #F07070;
-  --color-coral-light: #F59595;
-  --color-coral-50: #FEF0F0;
-
-  --font-sans: 'Noto Sans KR', system-ui, sans-serif;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 20px rgba(27,107,107,0.10);
 }
 
-* {
-  box-sizing: border-box;
+/* ── Dark mode ──────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg:           #0C1A1A;
+  --bg-alt:       #0F2222;
+  --bg-deep:      #071414;
+  --surface:      #162828;
+  --surface-alt:  #1C3232;
+  --border:       #254040;
+  --border-light: #1E3535;
+  --text:         #EDE8DF;
+  --text-sub:     #7AACAC;
+  --text-muted:   #4E7070;
+  --input-bg:     #1C3232;
+
+  --teal:         #4AACAC;
+  --teal-light:   #5CBCBC;
+  --teal-dark:    #3A9090;
+  --teal-50:      #0F2222;
+  --teal-100:     #1A3535;
+  --mustard:      #EAB12C;
+  --mustard-l:    #F2D058;
+  --mustard-50:   #1C1600;
+  --coral:        #F09090;
+  --coral-l:      #F5AAAA;
+  --coral-50:     #200A0A;
+
+  --nav-bg:       #071414;
+  --nav-text:     #C0E0E0;
+  --footer-bg:    #040D0D;
+  --footer-text:  #4E8080;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.35);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.40);
 }
+
+/* ── Base ───────────────────────────────────────────── */
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: 'Noto Sans KR', system-ui, sans-serif;
-  background-color: #FFF8EF;
-  color: #2d3748;
+  background-color: var(--bg);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s, color 0.25s;
 }
 
 #root {
@@ -42,4 +90,9 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Noto Sans KR', system-ui, sans-serif;
+}
+
+/* smooth theme transition on key elements */
+header, footer, main, section, div, button, input, textarea {
+  transition: background-color 0.25s, border-color 0.25s, color 0.25s;
 }

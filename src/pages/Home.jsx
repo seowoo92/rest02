@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
 import { Heart, Moon, Brain, Bot, ArrowRight, Star, CheckCircle } from 'lucide-react'
 import HeroParticles from '../components/HeroParticles'
+import { useTheme } from '../context/ThemeContext'
 
 const services = [
   {
     icon: Heart,
     title: '출산 후 회복루틴',
     desc: '주차별 맞춤 회복 프로그램으로 몸과 마음의 균형을 찾아드립니다.',
-    color: '#F07070',
+    color: 'var(--coral)',
     bg: '#FEF0F0',
     path: '/recovery',
   },
@@ -15,15 +16,15 @@ const services = [
     icon: Moon,
     title: '수면·수유 기록',
     desc: '아이의 수면과 수유 패턴을 기록하고, 전문 코칭 리포트를 받아보세요.',
-    color: '#1B6B6B',
-    bg: '#EFF8F8',
+    color: 'var(--teal)',
+    bg: 'var(--bg-alt)',
     path: '/tracker',
   },
   {
     icon: Brain,
     title: '산후우울 체크',
     desc: '산후우울증 자가진단으로 마음의 신호를 조기에 발견하고 케어하세요.',
-    color: '#D4A422',
+    color: 'var(--mustard)',
     bg: '#FDF6E3',
     path: '/depression-check',
   },
@@ -31,8 +32,8 @@ const services = [
     icon: Bot,
     title: 'AI 육아코치',
     desc: '24시간 AI가 육아 질문에 답하고, 개인 맞춤 육아 조언을 제공합니다.',
-    color: '#1B6B6B',
-    bg: '#EFF8F8',
+    color: 'var(--teal)',
+    bg: 'var(--bg-alt)',
     path: '/ai-coach',
   },
 ]
@@ -63,12 +64,16 @@ const testimonials = [
 ]
 
 export default function Home() {
+  const { isDark } = useTheme()
+
   return (
-    <div style={{ backgroundColor: '#FFF8EF' }}>
+    <div style={{ backgroundColor: 'var(--bg)' }}>
 
       {/* Hero */}
       <section style={{
-        background: 'linear-gradient(135deg, #1B6B6B 0%, #2A8B8B 60%, #145252 100%)',
+        background: isDark
+          ? 'linear-gradient(to bottom, #061A10, #0A2518)'
+          : 'linear-gradient(to bottom, #0F6E56, #1D9E75)',
         padding: '80px 24px 100px',
         textAlign: 'center',
         position: 'relative',
@@ -119,21 +124,21 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section style={{ backgroundColor: '#FFF8EF', padding: '40px 24px' }}>
+      <section style={{ backgroundColor: 'var(--bg)', padding: '40px 24px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{
             display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
             gap: '0', borderRadius: '16px', overflow: 'hidden',
-            border: '1px solid #E8D5BC', backgroundColor: '#fff',
+            border: '1px solid var(--border)', backgroundColor: 'var(--surface)',
             boxShadow: '0 2px 12px rgba(27,107,107,0.08)',
           }}>
             {stats.map(({ value, label }, i) => (
               <div key={label} style={{
                 padding: '28px 16px', textAlign: 'center',
-                borderRight: i < stats.length - 1 ? '1px solid #E8D5BC' : 'none',
+                borderRight: i < stats.length - 1 ? '1px solid var(--border)' : 'none',
               }}>
-                <div style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: '700', color: '#1B6B6B', marginBottom: '4px' }}>{value}</div>
-                <div style={{ fontSize: '13px', color: '#7B8FA0', fontWeight: '500' }}>{label}</div>
+                <div style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: '700', color: 'var(--teal)', marginBottom: '4px' }}>{value}</div>
+                <div style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: '500' }}>{label}</div>
               </div>
             ))}
           </div>
@@ -141,13 +146,13 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section style={{ padding: '64px 24px', backgroundColor: '#FFF8EF' }}>
+      <section style={{ padding: '64px 24px', backgroundColor: 'var(--bg)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 36px)', fontWeight: '700', color: '#1B6B6B', margin: '0 0 12px', letterSpacing: '-0.5px' }}>
+            <h2 style={{ fontSize: 'clamp(26px, 4vw, 36px)', fontWeight: '700', color: 'var(--teal)', margin: '0 0 12px', letterSpacing: '-0.5px' }}>
               아이봄의 핵심 서비스
             </h2>
-            <p style={{ color: '#6B7280', fontSize: '16px', margin: 0 }}>
+            <p style={{ color: 'var(--text-sub)', fontSize: '16px', margin: 0 }}>
               엄마와 아이를 위한 4가지 전문 케어 서비스
             </p>
           </div>
@@ -155,8 +160,8 @@ export default function Home() {
             {services.map(({ icon: Icon, title, desc, color, bg, path }) => (
               <Link key={path} to={path} style={{ textDecoration: 'none' }}>
                 <div style={{
-                  backgroundColor: '#fff', borderRadius: '16px', padding: '32px 24px',
-                  border: '1px solid #E8D5BC', transition: 'all 0.2s',
+                  backgroundColor: 'var(--surface)', borderRadius: '16px', padding: '32px 24px',
+                  border: '1px solid var(--border)', transition: 'all 0.2s',
                   cursor: 'pointer', height: '100%',
                 }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(27,107,107,0.12)' }}
@@ -169,8 +174,8 @@ export default function Home() {
                   }}>
                     <Icon size={26} color={color} strokeWidth={1.8} />
                   </div>
-                  <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1a202c', margin: '0 0 10px' }}>{title}</h3>
-                  <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: '1.6', margin: '0 0 16px' }}>{desc}</p>
+                  <h3 style={{ fontSize: '18px', fontWeight: '700', color: 'var(--text)', margin: '0 0 10px' }}>{title}</h3>
+                  <p style={{ fontSize: '14px', color: 'var(--text-sub)', lineHeight: '1.6', margin: '0 0 16px' }}>{desc}</p>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color, fontWeight: '600', fontSize: '14px' }}>
                     자세히 보기 <ArrowRight size={14} />
                   </div>
@@ -182,12 +187,12 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section style={{ padding: '64px 24px', backgroundColor: '#EFF8F8' }}>
+      <section style={{ padding: '64px 24px', backgroundColor: isDark ? 'var(--bg-alt)' : '#EFF8F8' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(26px, 4vw, 36px)', fontWeight: '700', color: '#1B6B6B', margin: '0 0 12px', letterSpacing: '-0.5px' }}>
+          <h2 style={{ fontSize: 'clamp(26px, 4vw, 36px)', fontWeight: '700', color: 'var(--teal)', margin: '0 0 12px', letterSpacing: '-0.5px' }}>
             아이봄 이용 방법
           </h2>
-          <p style={{ color: '#6B7280', fontSize: '16px', marginBottom: '48px' }}>
+          <p style={{ color: 'var(--text-sub)', fontSize: '16px', marginBottom: '48px' }}>
             3단계로 간단하게 시작하세요
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
@@ -199,14 +204,14 @@ export default function Home() {
               <div key={step} style={{ textAlign: 'center', padding: '24px' }}>
                 <div style={{
                   width: '56px', height: '56px', borderRadius: '50%',
-                  backgroundColor: '#1B6B6B', color: '#D4A422',
+                  backgroundColor: 'var(--teal)', color: '#D4A422',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: '18px', fontWeight: '700', margin: '0 auto 16px',
                 }}>
                   {step}
                 </div>
-                <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1a202c', margin: '0 0 8px' }}>{title}</h3>
-                <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: '1.6', margin: 0 }}>{desc}</p>
+                <h3 style={{ fontSize: '18px', fontWeight: '700', color: 'var(--text)', margin: '0 0 8px' }}>{title}</h3>
+                <p style={{ fontSize: '14px', color: 'var(--text-sub)', lineHeight: '1.6', margin: 0 }}>{desc}</p>
               </div>
             ))}
           </div>
@@ -214,36 +219,36 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section style={{ padding: '64px 24px', backgroundColor: '#FFF8EF' }}>
+      <section style={{ padding: '64px 24px', backgroundColor: 'var(--bg)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 36px)', fontWeight: '700', color: '#1B6B6B', margin: '0 0 12px', letterSpacing: '-0.5px' }}>
+            <h2 style={{ fontSize: 'clamp(26px, 4vw, 36px)', fontWeight: '700', color: 'var(--teal)', margin: '0 0 12px', letterSpacing: '-0.5px' }}>
               엄마들의 실제 이야기
             </h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
             {testimonials.map(({ name, text, rating }) => (
               <div key={name} style={{
-                backgroundColor: '#fff', borderRadius: '16px', padding: '28px 24px',
-                border: '1px solid #E8D5BC',
+                backgroundColor: 'var(--surface)', borderRadius: '16px', padding: '28px 24px',
+                border: '1px solid var(--border)',
               }}>
                 <div style={{ display: 'flex', gap: '2px', marginBottom: '16px' }}>
                   {Array.from({ length: rating }).map((_, i) => (
                     <Star key={i} size={16} fill="#D4A422" color="#D4A422" />
                   ))}
                 </div>
-                <p style={{ fontSize: '15px', color: '#374151', lineHeight: '1.7', margin: '0 0 20px' }}>
+                <p style={{ fontSize: '15px', color: 'var(--text-sub)', lineHeight: '1.7', margin: '0 0 20px' }}>
                   "{text}"
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{
                     width: '36px', height: '36px', borderRadius: '50%',
-                    backgroundColor: '#EFF8F8', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: '#1B6B6B', fontWeight: '700', fontSize: '14px',
+                    backgroundColor: 'var(--bg-alt)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'var(--teal)', fontWeight: '700', fontSize: '14px',
                   }}>
                     {name[0]}
                   </div>
-                  <span style={{ fontSize: '14px', fontWeight: '600', color: '#374151' }}>{name}</span>
+                  <span style={{ fontSize: '14px', fontWeight: '600', color: 'var(--text-sub)' }}>{name}</span>
                 </div>
               </div>
             ))}
@@ -254,7 +259,9 @@ export default function Home() {
       {/* CTA Banner */}
       <section style={{
         margin: '0 24px 64px', borderRadius: '24px',
-        background: 'linear-gradient(135deg, #1B6B6B, #2A8B8B)',
+        background: isDark
+          ? 'linear-gradient(135deg, #071414, #0C1A1A)'
+          : 'linear-gradient(135deg, #1B6B6B, #2A8B8B)',
         padding: '56px 32px', textAlign: 'center',
         maxWidth: '1100px', marginLeft: 'auto', marginRight: 'auto',
       }}>

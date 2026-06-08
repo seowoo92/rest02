@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 
-// 브랜드 컬러 팔레트 (RGB)
+// 브랜드 컬러 팔레트 (RGB) — 코랄 비중 40%, 골드 #EAB12C
 const COLORS = [
   [255, 248, 239],  // warm ivory
-  [212, 164, 34],   // mustard gold
-  [240, 112, 112],  // coral pink
-  [160, 216, 216],  // teal light
+  [234, 177, 44],   // mustard gold  #EAB12C
+  [240, 153, 123],  // coral pink    #F0997B
+  [240, 153, 123],  // coral pink    #F0997B  (비중 2×)
+  [160, 220, 210],  // teal light
 ]
 
 function newParticle(canvas, scatterY = false) {
@@ -16,7 +17,7 @@ function newParticle(canvas, scatterY = false) {
     size: Math.random() * 3.5 + 1.5,
     speedY: Math.random() * 0.65 + 0.2,
     speedX: (Math.random() - 0.5) * 0.3,
-    maxAlpha: Math.random() * 0.45 + 0.15,
+    maxAlpha: Math.random() * 0.55 + 0.30,
     alpha: 0,
     color,
     rotation: Math.random() * Math.PI * 2,
