@@ -73,49 +73,78 @@ export default function Home() {
       <section style={{
         background: isDark
           ? 'linear-gradient(to bottom, #061A10, #0A2518)'
-          : 'linear-gradient(to bottom, #0F6E56, #1D9E75)',
-        padding: '80px 24px 100px',
+          : [
+              'radial-gradient(ellipse at 68% 30%, rgba(29,158,117,0.16) 0%, transparent 55%)',
+              'radial-gradient(ellipse at 18% 80%, rgba(240,153,123,0.11) 0%, transparent 50%)',
+              'radial-gradient(ellipse at 85% 85%, rgba(234,177,44,0.09) 0%, transparent 45%)',
+              '#FBF5E9',
+            ].join(', '),
+        padding: '88px 24px 108px',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
       }}>
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(212,164,34,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(240,112,112,0.1) 0%, transparent 40%)',
-        }} />
-        <HeroParticles />
-        <div style={{ position: 'relative', maxWidth: '720px', margin: '0 auto' }}>
+        {/* 다크 모드 오버레이만 사용 */}
+        {isDark && (
           <div style={{
-            display: 'inline-block', padding: '6px 16px', borderRadius: '24px',
-            backgroundColor: 'rgba(212,164,34,0.2)', border: '1px solid rgba(212,164,34,0.4)',
-            color: '#E8BC3A', fontSize: '13px', fontWeight: '600', marginBottom: '24px',
+            position: 'absolute', inset: 0,
+            backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(234,177,44,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(240,153,123,0.08) 0%, transparent 40%)',
+          }} />
+        )}
+        <HeroParticles isDark={isDark} />
+        <div style={{ position: 'relative', maxWidth: '720px', margin: '0 auto' }}>
+
+          {/* 배지 */}
+          <div style={{
+            display: 'inline-block', padding: '6px 18px', borderRadius: '24px',
+            backgroundColor: isDark ? 'rgba(234,177,44,0.15)' : 'rgba(15,110,86,0.07)',
+            border: `1px solid ${isDark ? 'rgba(234,177,44,0.35)' : 'rgba(15,110,86,0.22)'}`,
+            color: isDark ? '#EAB12C' : '#0F6E56',
+            fontSize: '13px', fontWeight: '600', marginBottom: '28px',
+            letterSpacing: '0.2px',
           }}>
             2026년 6월 개업 — 육아 코칭의 새로운 시작
           </div>
-          <h1 style={{ color: '#FFF8EF', fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: '700', lineHeight: '1.2', margin: '0 0 24px', letterSpacing: '-1px' }}>
+
+          {/* 메인 타이틀 */}
+          <h1 style={{
+            color: isDark ? '#F0ECE3' : '#0F6E56',
+            fontSize: 'clamp(32px, 5vw, 58px)',
+            fontWeight: '700', lineHeight: '1.18',
+            margin: '0 0 24px', letterSpacing: '-1.2px',
+          }}>
             엄마의 회복,<br />
-            <span style={{ color: '#D4A422' }}>우리가 함께합니다</span>
+            <span style={{ color: '#EAB12C' }}>우리가 함께합니다</span>
           </h1>
-          <p style={{ color: '#C0E8E8', fontSize: 'clamp(16px, 2vw, 18px)', lineHeight: '1.7', margin: '0 0 40px' }}>
+
+          {/* 부제 */}
+          <p style={{
+            color: isDark ? '#9ECFBF' : '#3D7A65',
+            fontSize: 'clamp(15px, 2vw, 17px)', lineHeight: '1.8',
+            margin: '0 0 44px',
+          }}>
             출산 후 회복루틴부터 수면·수유 기록, 산후우울 체크, AI 육아 코칭까지<br />
             엄마와 아이의 건강한 출발을 아이봄이 함께합니다.
           </p>
+
+          {/* CTA 버튼 */}
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/ai-coach" style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '14px 28px', borderRadius: '28px',
-              backgroundColor: '#D4A422', color: '#1B6B6B',
+              padding: '14px 30px', borderRadius: '28px',
+              backgroundColor: '#EAB12C', color: '#0F6E56',
               fontWeight: '700', fontSize: '16px', textDecoration: 'none',
-              boxShadow: '0 4px 16px rgba(212,164,34,0.4)',
+              boxShadow: '0 4px 18px rgba(234,177,44,0.38)',
             }}>
               무료로 시작하기 <ArrowRight size={18} />
             </Link>
             <Link to="/recovery" style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '14px 28px', borderRadius: '28px',
+              padding: '14px 30px', borderRadius: '28px',
               backgroundColor: 'transparent',
-              border: '2px solid rgba(255,248,239,0.4)',
-              color: '#FFF8EF', fontWeight: '600', fontSize: '16px', textDecoration: 'none',
+              border: `2px solid ${isDark ? 'rgba(240,236,227,0.35)' : 'rgba(15,110,86,0.30)'}`,
+              color: isDark ? '#F0ECE3' : '#0F6E56',
+              fontWeight: '600', fontSize: '16px', textDecoration: 'none',
             }}>
               서비스 둘러보기
             </Link>

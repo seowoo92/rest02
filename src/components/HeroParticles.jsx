@@ -1,23 +1,35 @@
 import { useEffect, useRef } from 'react'
 
-// 브랜드 컬러 팔레트 (RGB) — 코랄 비중 40%, 골드 #EAB12C
-const COLORS = [
+// 다크 모드: 밝은 파티클 (어두운 배경 위)
+const COLORS_DARK = [
   [255, 248, 239],  // warm ivory
-  [234, 177, 44],   // mustard gold  #EAB12C
-  [240, 153, 123],  // coral pink    #F0997B
-  [240, 153, 123],  // coral pink    #F0997B  (비중 2×)
+  [234, 177, 44],   // gold    #EAB12C
+  [240, 153, 123],  // coral   #F0997B
+  [240, 153, 123],  // coral   (비중 2×)
   [160, 220, 210],  // teal light
 ]
 
-function newParticle(canvas, scatterY = false) {
-  const color = COLORS[Math.floor(Math.random() * COLORS.length)]
+// 라이트 모드: 딥 컬러 파티클 (밝은 배경 위)
+const COLORS_LIGHT = [
+  [15,  110, 86],   // deep teal  #0F6E56
+  [29,  158, 117],  // teal mid   #1D9E75
+  [234, 177, 44],   // gold       #EAB12C
+  [240, 153, 123],  // coral      #F0997B
+  [240, 153, 123],  // coral      (비중 2×)
+]
+
+function newParticle(canvas, isDark, scatterY = false) {
+  const palette = isDark ? COLORS_DARK : COLORS_LIGHT
+  const color = palette[Math.floor(Math.random() * palette.length)]
   return {
     x: Math.random() * canvas.width,
     y: scatterY ? Math.random() * canvas.height : canvas.height + Math.random() * 40,
     size: Math.random() * 3.5 + 1.5,
     speedY: Math.random() * 0.65 + 0.2,
     speedX: (Math.random() - 0.5) * 0.3,
-    maxAlpha: Math.random() * 0.55 + 0.30,
+    maxAlpha: isDark
+      ? Math.random() * 0.55 + 0.30   // 다크: 0.30–0.85
+      : Math.random() * 0.40 + 0.18,  // 라이트: 0.18–0.58
     alpha: 0,
     color,
     rotation: Math.random() * Math.PI * 2,
@@ -35,7 +47,7 @@ function drawLeaf(ctx, size) {
   ctx.fill()
 }
 
-export default function HeroParticles() {
+export default function HeroParticles({ isDark = false }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -54,7 +66,7 @@ export default function HeroParticles() {
     // 초기 배치 시 캔버스 전체에 분산
     const PARTICLE_COUNT = 60
     const particles = Array.from({ length: PARTICLE_COUNT }, () =>
-      newParticle(canvas, true)
+      newParticle(canvas, isDark, true)
     )
 
     const animate = () => {
@@ -70,7 +82,7 @@ export default function HeroParticles() {
         p.alpha = p.maxAlpha * Math.min(ratio * 4, (1 - ratio) * 3, 1)
 
         // 화면 밖으로 나가면 하단에서 다시 생성
-        if (p.y < -10) Object.assign(p, newParticle(canvas))
+        if (p.y < -10) Object.assign(p, newParticle(canvas, isDark))
 
         ctx.save()
         ctx.globalAlpha = Math.max(0, p.alpha)
